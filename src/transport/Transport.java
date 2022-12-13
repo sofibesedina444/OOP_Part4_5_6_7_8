@@ -42,11 +42,13 @@ public abstract class Transport {
 
     @Override
     public String toString() {
-        return "Бренд и модель: " + getFullName() + "," + "\n" +
+        return "Бренд и модель: " + getFullName() + "\n" +
                 "Объем двигателя: " + getEngineVolume() + " л." + "\n";
     }
 
     public abstract void start();
 
     public abstract void stop();
+
+    public abstract void printType();
 }

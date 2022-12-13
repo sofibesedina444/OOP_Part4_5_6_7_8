@@ -57,5 +57,6 @@ public abstract class Driver<T extends Transport> {
     public void printInfo(T transport) {
         System.out.println("Водитель " + driverName + " управляет автомобилем " +
                 transport.getFullName() + " и будет участвовать в заезде");
+        transport.printType();
     }
 }

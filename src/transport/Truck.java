@@ -2,8 +2,19 @@ package transport;
 
 public class Truck extends Transport implements Competing {
 
-    public Truck(String brand, String model, double engineVolume) {
+    private LoadCapacity loadCapacity;
+
+    public Truck(String brand, String model, double engineVolume, LoadCapacity loadCapacity) {
         super(brand, model, engineVolume);
+        this.loadCapacity = loadCapacity;
+    }
+
+    public LoadCapacity getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(LoadCapacity loadCapacity) {
+        this.loadCapacity = loadCapacity;
     }
 
     public String truckName() {
@@ -12,7 +23,7 @@ public class Truck extends Transport implements Competing {
 
     @Override
     public String toString() {
-        return truckName() + "\n" + super.toString();
+        return truckName() + "\n" + super.toString() + getLoadCapacity();
     }
 
     @Override
@@ -23,6 +34,15 @@ public class Truck extends Transport implements Competing {
     @Override
     public void stop() {
         System.out.println(truckName() + " " + getFullName() + " остановился");
+    }
+
+    @Override
+    public void printType() {
+        if (loadCapacity == null) {
+            System.out.println("Данных по транспортному средству недостаточно" + "\n");
+        } else {
+            System.out.println(loadCapacity);
+        }
     }
 
     @Override
