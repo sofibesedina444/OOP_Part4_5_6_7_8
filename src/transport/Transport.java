@@ -51,4 +51,6 @@ public abstract class Transport {
     public abstract void stop();
 
     public abstract void printType();
+
+    public abstract boolean getDiagnosed();
 }

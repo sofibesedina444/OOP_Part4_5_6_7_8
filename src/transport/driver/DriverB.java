@@ -4,9 +4,8 @@ import transport.Car;
 
 public class DriverB extends Driver<Car> {
 
-
-    public DriverB(String driverName, boolean driverLicense, int experience) {
-        super(driverName, driverLicense, experience);
+    public DriverB(String driverName, boolean driverLicense, int experience, Car transportCategory) {
+        super(driverName, driverLicense, experience, transportCategory);
     }
 
     @Override

@@ -6,8 +6,9 @@ public abstract class Driver<T extends Transport> {
     private final String driverName;
     private boolean driverLicense;
     private int experience;
+    private T transportCategory;
 
-    public Driver(String driverName, boolean driverLicense, int experience) {
+    public Driver(String driverName, boolean driverLicense, int experience, T transportCategory) {
         if (driverName != null && !driverName.isEmpty()) {
             this.driverName = driverName;
         } else {
@@ -15,6 +16,7 @@ public abstract class Driver<T extends Transport> {
         }
         this.driverLicense = driverLicense;
         setExperience(experience);
+        setTransportCategory(transportCategory);
     }
 
     public String getDriverName() {
@@ -41,11 +43,24 @@ public abstract class Driver<T extends Transport> {
         }
     }
 
+    public T getTransportCategory() {
+        return transportCategory;
+    }
+
+    public void setTransportCategory(T transportCategory) {
+        if (transportCategory == null) {
+            throw new IllegalArgumentException("Необходимо указать тип прав!");
+        } else {
+            this.transportCategory = transportCategory;
+        }
+    }
+
     @Override
     public String toString() {
         return "ФИО водителя: " + driverName + "," + "\n" +
                 "Наличие прав: " + driverLicense + "," + "\n" +
-                "Стаж вождения: " + experience;
+                "Стаж вождения: " + experience + "," + "\n" +
+                "Категория транспорта: " + transportCategory + "\n";
     }
 
     public abstract void start(T transport);

@@ -94,10 +94,11 @@ public class Main {
         System.out.println("Максимальная скорость: " + volgaBus.maxSpeed() + " км.ч");
         volgaBus.printType();
 
+        checkDiagnostics(audi, bmw, kia, hyundai, kamaz, jac, fotonAuman, man, liaz, paz, volvo, volgaBus);
 
         //Водители
 
-        DriverB ivanov = new DriverB("Иванов Иван Иванович", true, 15);
+        DriverB ivanov = new DriverB("Иванов Иван Иванович", true, 15, audi);
         System.out.println(ivanov);
         ivanov.printInfo(audi);
         ivanov.start(audi);
@@ -105,7 +106,7 @@ public class Main {
         ivanov.refill(audi);
         System.out.println();
 
-        DriverC petrov = new DriverC("Петров Петр Петрович", true, 5);
+        DriverC petrov = new DriverC("Петров Петр Петрович", true, 5, jac);
         System.out.println(petrov);
         petrov.printInfo(jac);
         petrov.start(jac);
@@ -113,11 +114,23 @@ public class Main {
         petrov.refill(jac);
         System.out.println();
 
-        DriverD sidorov = new DriverD("Сидоров Иван Петрович", true, 2);
+        DriverD sidorov = new DriverD("Сидоров Иван Петрович", true, 2, volgaBus);
         System.out.println(sidorov);
         sidorov.printInfo(volgaBus);
         sidorov.start(volgaBus);
         sidorov.stop(volgaBus);
         sidorov.refill(volgaBus);
+    }
+
+    public static void checkDiagnostics(Transport...transports) {
+        for (Transport transport : transports) {
+            try {
+                if (!transport.getDiagnosed()) {
+                    throw new RuntimeException("Транспортное средство " + transport.getFullName() + " не прошло диагностику");
+                }
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

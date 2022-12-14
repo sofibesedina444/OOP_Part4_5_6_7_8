@@ -46,6 +46,11 @@ public class Car extends Transport implements Competing {
     }
 
     @Override
+    public boolean getDiagnosed() {
+        return false;
+    }
+
+    @Override
     public void pitStop() {
         System.out.println(carName() + " " + getFullName() +
                 " прошел техническую остановку машины во время гонки");
