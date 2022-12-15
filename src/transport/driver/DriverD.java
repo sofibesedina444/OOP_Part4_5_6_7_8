@@ -1,25 +1,25 @@
 package transport.driver;
 
-import transport.Bus;
+import transport.category.D;
 
-public class DriverD extends Driver<Bus> {
+public class DriverD extends Driver<D> {
 
-    public DriverD(String driverName, boolean driverLicense, int experience, Bus transportCategory) {
-        super(driverName, driverLicense, experience, transportCategory);
+    public DriverD(String driverName, boolean driverLicense, int experience, D typeCategory) {
+        super(driverName, driverLicense, experience, typeCategory);
     }
 
     @Override
-    public void start(Bus transport) {
-        transport.start();
+    public void start() {
+        System.out.println("Водитель " + getDriverName() + " начал движение");
     }
 
     @Override
-    public void stop(Bus transport) {
-        transport.stop();
+    public void stop() {
+        System.out.println("Водитель " + getDriverName() + " остановился");
     }
 
     @Override
-    public void refill(Bus transport) {
-        System.out.println("Водитель " + getDriverName() + " заправляет автомобиль " + transport.getFullName());
+    public void refill() {
+        System.out.println("Водитель " + getDriverName() + " заправляет автомобиль");
     }
 }

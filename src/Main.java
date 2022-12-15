@@ -1,14 +1,32 @@
 import transport.*;
+import transport.category.B;
+import transport.category.C;
+import transport.category.D;
+import transport.driver.Driver;
 import transport.driver.DriverB;
 import transport.driver.DriverC;
 import transport.driver.DriverD;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
+        //Механики
+        Mechanic<Car> robert = new Mechanic<Car>("Robert Stensland", "Trand Motors");
+        Mechanic<Truck> goncharov = new Mechanic<>("Гончаров Станислав Евгеньевич", "SportCar");
+        Mechanic<Transport> houdini = new Mechanic<>("Harry Houdini", "Raceonepro");
+
+        //Спонсоры
+        Sponsor averyMcKernon = new Sponsor("Avery McKernon", 150_000_000);
+        Sponsor zaineConstraction = new Sponsor("Zaine Constraction", 90_000_000);
+        Sponsor spector = new Sponsor("Spector", 500_000_000);
 
         //Транспортные средства
-
         Car audi = new Car("Audi", "A8 50 L TDI quattro", 3.0, BodyType.CROSSOVER);
+        audi.addDriver(new DriverB("Иванов Иван Иванович", true, 15,
+                new B("B")));
+        audi.addMechanic(robert);
+        audi.addSponsor(averyMcKernon, zaineConstraction);
         System.out.print(audi);
         audi.pitStop();
         System.out.println("Лучшее время круга (мин): " + audi.bestLoopTime());
@@ -38,6 +56,10 @@ public class Main {
 
 
         Truck kamaz = new Truck("КамАЗ", "54901", 12, LoadCapacity.N3);
+        kamaz.addDriver(new DriverC("Петров Петр Петрович", true, 5,
+                new C("C")));
+        kamaz.addMechanic(goncharov);
+        kamaz.addSponsor(spector);
         System.out.print(kamaz);
         kamaz.pitStop();
         System.out.println("Лучшее время круга (мин): " + kamaz.bestLoopTime());
@@ -67,6 +89,10 @@ public class Main {
 
 
         Bus liaz = new Bus("ЛиАз", "5292", 6.6, Capacity.BIG);
+        liaz.addDriver(new DriverD("Сидоров Иван Петрович", true, 2,
+                new D("D")));
+        liaz.addMechanic(houdini);
+        liaz.addSponsor(spector, averyMcKernon);
         System.out.print(liaz);
         liaz.pitStop();
         System.out.println("Лучшее время круга (мин): " + liaz.bestLoopTime());
@@ -96,33 +122,35 @@ public class Main {
 
         checkDiagnostics(audi, bmw, kia, hyundai, kamaz, jac, fotonAuman, man, liaz, paz, volvo, volgaBus);
 
+
         //Водители
+        //DriverB ivanov = new DriverB("Иванов Иван Иванович", true, 15, new B("B"));
+        //System.out.println(ivanov);
+        //printInfo(ivanov, audi);
 
-        DriverB ivanov = new DriverB("Иванов Иван Иванович", true, 15, audi);
-        System.out.println(ivanov);
-        ivanov.printInfo(audi);
-        ivanov.start(audi);
-        ivanov.stop(audi);
-        ivanov.refill(audi);
-        System.out.println();
+        //DriverC petrov = new DriverC("Петров Петр Петрович", true, 5, new C("C"));
+        //System.out.println(petrov);
+        //printInfo(petrov, jac);
 
-        DriverC petrov = new DriverC("Петров Петр Петрович", true, 5, jac);
-        System.out.println(petrov);
-        petrov.printInfo(jac);
-        petrov.start(jac);
-        petrov.stop(jac);
-        petrov.refill(jac);
-        System.out.println();
+        //DriverD sidorov = new DriverD("Сидоров Иван Петрович", true, 2, new D("D"));
+        //System.out.println(sidorov);
+        //printInfo(sidorov, volgaBus);
 
-        DriverD sidorov = new DriverD("Сидоров Иван Петрович", true, 2, volgaBus);
-        System.out.println(sidorov);
-        sidorov.printInfo(volgaBus);
-        sidorov.start(volgaBus);
-        sidorov.stop(volgaBus);
-        sidorov.refill(volgaBus);
+        List<Transport> transports = List.of(audi, kamaz, liaz);
+        for (Transport transport : transports) {
+            getInformation(transport);
+        }
     }
 
-    public static void checkDiagnostics(Transport...transports) {
+    public static void getInformation(Transport transport) {
+        System.out.println("Информация об автомобиле: " + transport.getFullName());
+        System.out.println("Информация об участнике гонки: " + transport.getDrivers());
+        System.out.println("Информация о технических специалистах команды: " + transport.getMechanics());
+        System.out.println("Информация о спонсорах: " + transport.getSponsors());
+        System.out.println();
+    }
+
+    public static void checkDiagnostics(Transport... transports) {
         for (Transport transport : transports) {
             try {
                 if (!transport.getDiagnosed()) {
@@ -132,5 +160,11 @@ public class Main {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public static void printInfo(Driver<?> driver, Transport transport) {
+        System.out.println("Водитель " + driver.getDriverName() + " управляет автомобилем " +
+                transport.getFullName() + " и будет участвовать в заезде");
+        transport.printType();
     }
 }

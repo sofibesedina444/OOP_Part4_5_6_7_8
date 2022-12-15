@@ -1,14 +1,14 @@
 package transport.driver;
 
-import transport.Transport;
+import transport.category.Category;
 
-public abstract class Driver<T extends Transport> {
+public abstract class Driver<C extends Category> {
     private final String driverName;
     private boolean driverLicense;
     private int experience;
-    private T transportCategory;
+    private C typeCategory;
 
-    public Driver(String driverName, boolean driverLicense, int experience, T transportCategory) {
+    public Driver(String driverName, boolean driverLicense, int experience, C typeCategory) {
         if (driverName != null && !driverName.isEmpty()) {
             this.driverName = driverName;
         } else {
@@ -16,8 +16,9 @@ public abstract class Driver<T extends Transport> {
         }
         this.driverLicense = driverLicense;
         setExperience(experience);
-        setTransportCategory(transportCategory);
+        setTypeCategory(typeCategory);
     }
+
 
     public String getDriverName() {
         return driverName;
@@ -43,15 +44,15 @@ public abstract class Driver<T extends Transport> {
         }
     }
 
-    public T getTransportCategory() {
-        return transportCategory;
+    public C getTypeCategory() {
+        return typeCategory;
     }
 
-    public void setTransportCategory(T transportCategory) {
-        if (transportCategory == null) {
-            throw new IllegalArgumentException("Необходимо указать тип прав!");
+    public void setTypeCategory(C typeCategory) {
+        if (typeCategory == null) {
+            throw new IllegalArgumentException("Необходимо указать категорию прав!");
         } else {
-            this.transportCategory = transportCategory;
+            this.typeCategory = typeCategory;
         }
     }
 
@@ -60,18 +61,12 @@ public abstract class Driver<T extends Transport> {
         return "ФИО водителя: " + driverName + "," + "\n" +
                 "Наличие прав: " + driverLicense + "," + "\n" +
                 "Стаж вождения: " + experience + "," + "\n" +
-                "Категория транспорта: " + transportCategory + "\n";
+                "Категория прав: " + typeCategory + "\n";
     }
 
-    public abstract void start(T transport);
+    public abstract void start();
 
-    public abstract void stop(T transport);
+    public abstract void stop();
 
-    public abstract void refill(T transport);
-
-    public void printInfo(T transport) {
-        System.out.println("Водитель " + driverName + " управляет автомобилем " +
-                transport.getFullName() + " и будет участвовать в заезде");
-        transport.printType();
-    }
+    public abstract void refill();
 }

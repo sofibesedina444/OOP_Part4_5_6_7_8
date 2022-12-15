@@ -27,12 +27,12 @@ public class Bus extends Transport implements Competing {
     }
 
     @Override
-    public void start() {
+    public void startMove() {
         System.out.println(busName() + " " + getFullName() + " начал движение");
     }
 
     @Override
-    public void stop() {
+    public void stopMove() {
         System.out.println(busName() + " " + getFullName() + " остановился");
     }
 
@@ -49,6 +49,11 @@ public class Bus extends Transport implements Competing {
     public boolean getDiagnosed() {
         System.out.println(busName() + " " + getFullName() + " в диагностике не требуется");
         return true;
+    }
+
+    @Override
+    public void fixTransport() {
+        System.out.println(busName() + " " + getFullName() + " починен");
     }
 
     @Override

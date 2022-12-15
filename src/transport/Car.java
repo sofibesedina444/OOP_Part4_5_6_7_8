@@ -27,12 +27,12 @@ public class Car extends Transport implements Competing {
     }
 
     @Override
-    public void start() {
+    public void startMove() {
         System.out.println(carName() + " " + getFullName() + " начал движение");
     }
 
     @Override
-    public void stop() {
+    public void stopMove() {
         System.out.println(carName() + " " + getFullName() + " остановился");
     }
 
@@ -48,6 +48,11 @@ public class Car extends Transport implements Competing {
     @Override
     public boolean getDiagnosed() {
         return false;
+    }
+
+    @Override
+    public void fixTransport() {
+        System.out.println(carName() + " " + getFullName() + " починен");
     }
 
     @Override

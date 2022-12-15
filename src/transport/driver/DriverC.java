@@ -1,25 +1,25 @@
 package transport.driver;
 
-import transport.Truck;
+import transport.category.C;
 
-public class DriverC extends Driver<Truck> {
+public class DriverC extends Driver<C> {
 
-    public DriverC(String driverName, boolean driverLicense, int experience, Truck transportCategory) {
-        super(driverName, driverLicense, experience, transportCategory);
+    public DriverC(String driverName, boolean driverLicense, int experience, C typeCategory) {
+        super(driverName, driverLicense, experience, typeCategory);
     }
 
     @Override
-    public void start(Truck transport) {
-        transport.start();
+    public void start() {
+        System.out.println("Водитель " + getDriverName() + " начал движение");
     }
 
     @Override
-    public void stop(Truck transport) {
-        transport.stop();
+    public void stop() {
+        System.out.println("Водитель " + getDriverName() + " остановился");
     }
 
     @Override
-    public void refill(Truck transport) {
-        System.out.println("Водитель " + getDriverName() + " заправляет автомобиль " + transport.getFullName());
+    public void refill() {
+        System.out.println("Водитель " + getDriverName() + " заправляет автомобиль");
     }
 }
