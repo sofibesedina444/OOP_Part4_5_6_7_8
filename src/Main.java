@@ -6,27 +6,33 @@ import transport.driver.Driver;
 import transport.driver.DriverB;
 import transport.driver.DriverC;
 import transport.driver.DriverD;
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         //Механики
-        Mechanic<Car> robert = new Mechanic<Car>("Robert Stensland", "Trand Motors");
+        Mechanic<Car> robert = new Mechanic<>("Robert Stensland", "Trand Motors");
         Mechanic<Truck> goncharov = new Mechanic<>("Гончаров Станислав Евгеньевич", "SportCar");
         Mechanic<Transport> houdini = new Mechanic<>("Harry Houdini", "Raceonepro");
 
         //Спонсоры
         Sponsor averyMcKernon = new Sponsor("Avery McKernon", 150_000_000);
+        Sponsor averyMcKernon1 = new Sponsor("Avery McKernon", 150_000_000);
         Sponsor zaineConstraction = new Sponsor("Zaine Constraction", 90_000_000);
         Sponsor spector = new Sponsor("Spector", 500_000_000);
 
-        //Транспортные средства
+        //Транспортные средства:
+
+        //Легковые авто:
+
         Car audi = new Car("Audi", "A8 50 L TDI quattro", 3.0, BodyType.CROSSOVER);
         audi.addDriver(new DriverB("Иванов Иван Иванович", true, 15,
                 new B("B")));
         audi.addMechanic(robert);
         audi.addSponsor(averyMcKernon, zaineConstraction);
+        audi.addSponsor(averyMcKernon1);
         System.out.print(audi);
         audi.pitStop();
         System.out.println("Лучшее время круга (мин): " + audi.bestLoopTime());
@@ -39,14 +45,12 @@ public class Main {
         System.out.println("Лучшее время круга (мин): " + bmw.bestLoopTime());
         System.out.println("Максимальная скорость: " + bmw.maxSpeed() + " км.ч");
         bmw.printType();
-
         Car kia = new Car("Kia", "Sportage 4-го поколения", 2.4, BodyType.SEDAN);
         System.out.print(kia);
         kia.pitStop();
         System.out.println("Лучшее время круга (мин): " + kia.bestLoopTime());
         System.out.println("Максимальная скорость: " + kia.maxSpeed() + " км.ч");
         kia.printType();
-
         Car hyundai = new Car("Hyundai", "Avante", 1.6, BodyType.HATCHBACK);
         System.out.print(hyundai);
         hyundai.pitStop();
@@ -54,6 +58,7 @@ public class Main {
         System.out.println("Максимальная скорость: " + hyundai.maxSpeed() + " км.ч");
         hyundai.printType();
 
+        //Грузовые авто:
 
         Truck kamaz = new Truck("КамАЗ", "54901", 12, LoadCapacity.N3);
         kamaz.addDriver(new DriverC("Петров Петр Петрович", true, 5,
@@ -72,14 +77,12 @@ public class Main {
         System.out.println("Лучшее время круга (мин): " + jac.bestLoopTime());
         System.out.println("Максимальная скорость: " + jac.maxSpeed() + " км.ч");
         jac.printType();
-
         Truck fotonAuman = new Truck("Foton Auman", "H5 BJ4189", 11.8, LoadCapacity.N2);
         System.out.print(fotonAuman);
         fotonAuman.pitStop();
         System.out.println("Лучшее время круга (мин): " + fotonAuman.bestLoopTime());
         System.out.println("Максимальная скорость: " + fotonAuman.maxSpeed() + " км.ч");
         fotonAuman.printType();
-
         Truck man = new Truck("MAN", "TGX", 10.5, LoadCapacity.N1);
         System.out.print(man);
         man.pitStop();
@@ -87,6 +90,7 @@ public class Main {
         System.out.println("Максимальная скорость: " + man.maxSpeed() + " км.ч");
         man.printType();
 
+        //Автобусы:
 
         Bus liaz = new Bus("ЛиАз", "5292", 6.6, Capacity.BIG);
         liaz.addDriver(new DriverD("Сидоров Иван Петрович", true, 2,
@@ -105,14 +109,12 @@ public class Main {
         System.out.println("Лучшее время круга (мин): " + paz.bestLoopTime());
         System.out.println("Максимальная скорость: " + paz.maxSpeed() + " км.ч");
         paz.printType();
-
         Bus volvo = new Bus("Volvo", "7900", 2.4, Capacity.EXTRA_LARGE);
         System.out.print(volvo);
         volvo.pitStop();
         System.out.println("Лучшее время круга (мин): " + volvo.bestLoopTime());
         System.out.println("Максимальная скорость: " + volvo.maxSpeed() + " км.ч");
         volvo.printType();
-
         Bus volgaBus = new Bus("VolgaBus", "5270GH", 7.8, Capacity.BIG);
         System.out.print(volgaBus);
         volgaBus.pitStop();
@@ -122,21 +124,24 @@ public class Main {
 
         checkDiagnostics(audi, bmw, kia, hyundai, kamaz, jac, fotonAuman, man, liaz, paz, volvo, volgaBus);
 
+        //Водители:
 
-        //Водители
-        //DriverB ivanov = new DriverB("Иванов Иван Иванович", true, 15, new B("B"));
-        //System.out.println(ivanov);
-        //printInfo(ivanov, audi);
+        DriverB ivanov = new DriverB("Иванов Иван Иванович", true, 15, new B("B"));
+        System.out.println(ivanov);
+        printInfo(ivanov, audi);
+        DriverC petrov = new DriverC("Петров Петр Петрович", true, 5, new C("C"));
+        System.out.println(petrov);
+        printInfo(petrov, jac);
+        DriverD sidorov = new DriverD("Сидоров Иван Петрович", true, 2, new D("D"));
+        System.out.println(sidorov);
+        printInfo(sidorov, volgaBus);
 
-        //DriverC petrov = new DriverC("Петров Петр Петрович", true, 5, new C("C"));
-        //System.out.println(petrov);
-        //printInfo(petrov, jac);
-
-        //DriverD sidorov = new DriverD("Сидоров Иван Петрович", true, 2, new D("D"));
-        //System.out.println(sidorov);
-        //printInfo(sidorov, volgaBus);
-
-        List<Transport> transports = List.of(audi, kamaz, liaz);
+        ServiceStation serviceStation = new ServiceStation();
+        serviceStation.addCar(audi);
+        serviceStation.addTruck(kamaz);
+        System.out.println();
+        
+        Set<Transport> transports = new HashSet<>(List.of(audi, kamaz, liaz));
         for (Transport transport : transports) {
             getInformation(transport);
         }

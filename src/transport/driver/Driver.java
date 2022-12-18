@@ -2,6 +2,8 @@ package transport.driver;
 
 import transport.category.Category;
 
+import java.util.Objects;
+
 public abstract class Driver<C extends Category> {
     private final String driverName;
     private boolean driverLicense;
@@ -62,6 +64,20 @@ public abstract class Driver<C extends Category> {
                 "Наличие прав: " + driverLicense + "," + "\n" +
                 "Стаж вождения: " + experience + "," + "\n" +
                 "Категория прав: " + typeCategory + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Driver)) return false;
+        Driver<?> driver = (Driver<?>) o;
+        return driverLicense == driver.driverLicense && experience == driver.experience
+                && Objects.equals(driverName, driver.driverName) && Objects.equals(typeCategory, driver.typeCategory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(driverName, driverLicense, experience, typeCategory);
     }
 
     public abstract void start();
